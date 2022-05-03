@@ -1,0 +1,6 @@
+bin
+obj
+/packages
+TombstoneLock.sln.DotSettings.user
+.idea
+.vs
