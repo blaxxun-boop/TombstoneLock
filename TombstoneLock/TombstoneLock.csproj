@@ -87,6 +87,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="TerminalCommands.cs" />
         <Compile Include="TombstoneLock.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

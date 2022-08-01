@@ -12,15 +12,15 @@ namespace TombstoneLock;
 public class TombstoneLock : BaseUnityPlugin
 {
 	private const string ModName = "TombstoneLock";
-	private const string ModVersion = "1.0.0";
+	private const string ModVersion = "1.0.1";
 	private const string ModGUID = "org.bepinex.plugins.tombstonelock";
 
-	private static readonly ConfigSync configSync = new(ModName) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
+	public static readonly ConfigSync configSync = new(ModName) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
 
 	private static ConfigEntry<Toggle> serverConfigLocked = null!;
 	private static ConfigEntry<PickupPermission> pickupPermission = null!;
 	private static ConfigEntry<int> timedDestruction = null!;
-
+	
 	private ConfigEntry<T> config<T>(string group, string name, T value, ConfigDescription description, bool synchronizedSetting = true)
 	{
 		ConfigEntry<T> configEntry = Config.Bind(group, name, value, description);
@@ -45,6 +45,8 @@ public class TombstoneLock : BaseUnityPlugin
 		Everyone = 1,
 		Group = 2
 	}
+
+	public static bool admin = false;
 
 	public void Awake()
 	{
@@ -97,6 +99,11 @@ public class TombstoneLock : BaseUnityPlugin
 		private static bool Prefix(TombStone __instance)
 		{
 			bool canPickup = false;
+
+			if (admin)
+			{
+				return true;
+			}
 
 			switch ((PickupPermission)__instance.m_nview.GetZDO().GetInt("TombstoneLock PickupPermission"))
 			{
