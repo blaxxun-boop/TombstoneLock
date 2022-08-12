@@ -11,9 +11,9 @@ namespace TombstoneLock;
 [BepInDependency("org.bepinex.plugins.groups", BepInDependency.DependencyFlags.SoftDependency)]
 public class TombstoneLock : BaseUnityPlugin
 {
-	private const string ModName = "TombstoneLock";
-	private const string ModVersion = "1.0.1";
-	private const string ModGUID = "org.bepinex.plugins.tombstonelock";
+	internal const string ModName = "TombstoneLock";
+	internal const string ModVersion = "1.0.2";
+	internal const string ModGUID = "org.bepinex.plugins.tombstonelock";
 
 	public static readonly ConfigSync configSync = new(ModName) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
 
