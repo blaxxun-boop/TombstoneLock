@@ -12,7 +12,7 @@ namespace TombstoneLock;
 public class TombstoneLock : BaseUnityPlugin
 {
 	private const string ModName = "TombstoneLock";
-	private const string ModVersion = "1.0.1";
+	private const string ModVersion = "1.0.2";
 	private const string ModGUID = "org.bepinex.plugins.tombstonelock";
 
 	public static readonly ConfigSync configSync = new(ModName) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
@@ -20,7 +20,7 @@ public class TombstoneLock : BaseUnityPlugin
 	private static ConfigEntry<Toggle> serverConfigLocked = null!;
 	private static ConfigEntry<PickupPermission> pickupPermission = null!;
 	private static ConfigEntry<int> timedDestruction = null!;
-	
+
 	private ConfigEntry<T> config<T>(string group, string name, T value, ConfigDescription description, bool synchronizedSetting = true)
 	{
 		ConfigEntry<T> configEntry = Config.Bind(group, name, value, description);
@@ -78,7 +78,7 @@ public class TombstoneLock : BaseUnityPlugin
 			{
 				return;
 			}
-			
+
 			long now = ZNet.instance.GetTime().Ticks;
 			long death = __instance.m_nview.GetZDO().GetLong("timeOfDeath");
 			float remaining = timedDestruction.Value * 60 + (death - now) / 1_000_000_000;
