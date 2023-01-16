@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
 using Groups;
@@ -8,11 +9,12 @@ using ServerSync;
 namespace TombstoneLock;
 
 [BepInPlugin(ModGUID, ModName, ModVersion)]
+[BepInIncompatibility("org.bepinex.plugins.valheim_plus")]
 [BepInDependency("org.bepinex.plugins.groups", BepInDependency.DependencyFlags.SoftDependency)]
 public class TombstoneLock : BaseUnityPlugin
 {
 	private const string ModName = "TombstoneLock";
-	private const string ModVersion = "1.0.3";
+	private const string ModVersion = "1.0.4";
 	private const string ModGUID = "org.bepinex.plugins.tombstonelock";
 
 	public static readonly ConfigSync configSync = new(ModName) { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion };
@@ -81,7 +83,7 @@ public class TombstoneLock : BaseUnityPlugin
 
 			long now = ZNet.instance.GetTime().Ticks;
 			long death = __instance.m_nview.GetZDO().GetLong("timeOfDeath");
-			float remaining = timedDestruction.Value * 60 + (death - now) / 1_000_000_000;
+			float remaining = timedDestruction.Value * 60 + (death - now) / TimeSpan.TicksPerSecond;
 			if (remaining <= 0)
 			{
 				ZNetScene.instance.Destroy(__instance.gameObject);

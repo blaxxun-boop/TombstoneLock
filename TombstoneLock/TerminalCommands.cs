@@ -12,7 +12,7 @@ public static class TerminalCommands
 		{
 			_ = new Terminal.ConsoleCommand("tombstone", "Manages the Tombstone Lock commands.", (Terminal.ConsoleEvent)(args =>
 			{
-				if (!TombstoneLock.configSync.IsAdmin && !TombstoneLock.configSync.IsSourceOfTruth)
+				if (TombstoneLock.configSync is { IsAdmin: false, IsSourceOfTruth: false })
 				{
 					args.Context.AddString("You are not an admin on this server.");
 					return;
@@ -24,7 +24,7 @@ public static class TerminalCommands
 					args.Context.AddString($"Tombstone admin is now {TombstoneLock.admin}.");
 					return;
 				}
-				
+
 				args.Context.AddString("Tombstone Lock console commands - use 'Tombstone' followed by one of the following options.");
 				args.Context.AddString("admin - toggles the admin mode for this session.");
 			}), optionsFetcher: () => new List<string> { "admin" });
